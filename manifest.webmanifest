@@ -1,8 +1,8 @@
 {
   "name": "PIO Logistics Presentation",
   "short_name": "PIO Presentation",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "fullscreen",
   "display_override": ["fullscreen", "standalone"],
   "orientation": "landscape",
