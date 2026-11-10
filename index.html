@@ -11,45 +11,59 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="presentation-assets/pwa-icon-180.png">
   <title>PIO Logistics | 5-Minute Capabilities Presentation</title>
+  <meta name="description" content="PIO Logistics Co., Ltd: sea freight, air freight, LCL consolidation, trucking and customs clearance through Vietnam's Cat Lai, Da Nang and Hai Phong ports.">
+  <link rel="canonical" href="https://pio-logistics.github.io/">
+  <link rel="icon" type="image/png" sizes="32x32" href="presentation-assets/favicon-32.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PIO Logistics">
+  <meta property="og:title" content="PIO Logistics | Capabilities Presentation">
+  <meta property="og:description" content="Sea freight, air freight, LCL consolidation, trucking and customs clearance from Vietnam's key ports.">
+  <meta property="og:url" content="https://pio-logistics.github.io/">
+  <meta property="og:image" content="https://pio-logistics.github.io/presentation-assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" href="presentation-assets/fonts/SF-Pro-Display-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="presentation-assets/cover-freight-sea-front.webp" as="image">
   <style>
     @font-face {
       font-family: "PIO SF Pro";
-      src: url("presentation-assets/fonts/SF-Pro-Display-Regular.otf") format("opentype");
+      src: url("presentation-assets/fonts/SF-Pro-Display-Regular.woff2") format("woff2");
       font-weight: 400;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
       font-family: "PIO SF Pro";
-      src: url("presentation-assets/fonts/SF-Pro-Display-Medium.otf") format("opentype");
+      src: url("presentation-assets/fonts/SF-Pro-Display-Medium.woff2") format("woff2");
       font-weight: 500;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
       font-family: "PIO SF Pro";
-      src: url("presentation-assets/fonts/SF-Pro-Display-Semibold.otf") format("opentype");
+      src: url("presentation-assets/fonts/SF-Pro-Display-Semibold.woff2") format("woff2");
       font-weight: 700;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
       font-family: "PIO SF Pro";
-      src: url("presentation-assets/fonts/SF-Pro-Display-Bold.otf") format("opentype");
+      src: url("presentation-assets/fonts/SF-Pro-Display-Bold.woff2") format("woff2");
       font-weight: 800;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
       font-family: "PIO SF Pro";
-      src: url("presentation-assets/fonts/SF-Pro-Display-Heavy.otf") format("opentype");
+      src: url("presentation-assets/fonts/SF-Pro-Display-Heavy.woff2") format("woff2");
       font-weight: 900;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
       font-family: "PIO SF Pro";
-      src: url("presentation-assets/fonts/SF-Pro-Display-Black.otf") format("opentype");
+      src: url("presentation-assets/fonts/SF-Pro-Display-Black.woff2") format("woff2");
       font-weight: 950;
       font-style: normal;
       font-display: swap;
@@ -2760,7 +2774,7 @@
       height: clamp(42px, 4vw, 58px);
       border: 1px solid rgba(255,255,255,.78);
       border-radius: 999px;
-      background: rgba(255,255,255,.9) url("presentation-assets/pio-logo-header.png") center / calc(100% - 24px) auto no-repeat;
+      background: rgba(255,255,255,.9) url("presentation-assets/pio-logo-header.webp") center / calc(100% - 24px) auto no-repeat;
       box-shadow: 0 12px 34px rgba(4,17,39,.24);
       backdrop-filter: blur(12px) saturate(1.12);
       -webkit-backdrop-filter: blur(12px) saturate(1.12);
@@ -3869,7 +3883,7 @@
       display: grid;
       grid-template-columns: 1fr;
       align-items: center;
-      align-content: center;
+      align-content: safe center;
       height: 100%;
     }
     .network-cert-head {
@@ -5528,7 +5542,7 @@
         line-height: 1.2;
       }
       .network-cert-layout {
-        align-content: center;
+        align-content: safe center;
       }
       .network-cert-layout h2,
       .network-cert-title {
@@ -5786,7 +5800,7 @@
       .cover-service-stage, .port-coverage-layout, .network-cert-layout, .port-detail-layout, .focus-slide, .truck-ops-layout, .customs-modern {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
-        align-content: center;
+        align-content: safe center;
         gap: 24px;
       }
       .cover-service-stage {
@@ -6984,7 +6998,7 @@
       .contact-layout {
         height: 100% !important;
         align-items: center !important;
-        align-content: center !important;
+        align-content: safe center !important;
       }
 
       .focus-slide,
@@ -7575,12 +7589,205 @@
         min-height: min(48vh, 360px) !important;
       }
     }
+
+    /* ==========================================================
+       Responsive fixes. Kept in one block at the end so they win
+       over the earlier breakpoint layers; the JS auto-fit
+       (fitActiveSlide) handles any remaining height overflow in
+       presentation (non-scrolling) mode.
+       ========================================================== */
+
+    /* Slide counter clears both top-right buttons (menu + fullscreen). */
+    :root { --top-actions-w: 84px; }
+    .slide-counter {
+      right: calc(max(3.2vw, calc(env(safe-area-inset-right) + 22px)) + var(--top-actions-w) + 14px);
+    }
+    @media (max-width: 680px) {
+      :root { --top-actions-w: 76px; }
+    }
+
+    /* Certificate hero: size by viewport height too, so it never runs
+       into the footer on short laptop screens (1280x720, 1366x768). */
+    @media (min-width: 761px) {
+      .network-cert-grid.single-certificate {
+        grid-template-columns: minmax(300px, min(62vw, 760px, calc((100svh - 330px) * 1.3))) !important;
+      }
+      .network-cert-grid.single-certificate .network-cert-card {
+        min-height: min(62vh, 590px, calc(100svh - 330px)) !important;
+      }
+    }
+
+    /* Lane cards: reserve room for the flag so long lane names wrap
+       instead of running into it (e.g. "Vietnam - Middle East"). */
+    @media (min-width: 521px) and (min-height: 561px) {
+      .route-lane-grid .route-lane,
+      .sea-clean-layout .route-lane-grid .route-lane {
+        padding-right: calc(min(28%, 64px) + 20px);
+      }
+      .route-lane-grid .route-lane .flag-watermark,
+      .sea-clean-layout .route-lane-grid .route-lane .flag-watermark,
+      .trade-lanes .trade-lane .flag-watermark,
+      .port-detail-copy .trade-lanes .trade-lane .flag-watermark {
+        top: 50%;
+        bottom: auto;
+        right: 10px;
+        width: min(28%, 64px);
+        height: auto;
+        max-height: calc(100% - 12px);
+        aspect-ratio: 3 / 2;
+        border-radius: 7px;
+        transform: translateY(-50%);
+      }
+      .trade-lanes .trade-lane {
+        padding-right: calc(min(28%, 64px) + 20px);
+      }
+    }
+
+    /* Phone landscape: cover card captions may wrap to two lines
+       instead of being forced onto one clipped line. */
+    @media (orientation: landscape) and (max-height: 560px) and (max-width: 1100px) {
+      .cover-service-card.is-primary .cover-service-label p,
+      .cover-service-card.is-truck .cover-service-label p,
+      .cover-service-card.is-customs-small .cover-service-label p {
+        white-space: normal !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden !important;
+      }
+    }
+    /* Landscape tablets <=1024px (iPad 1024x768) already get the stacked
+       one-column layout, so let slides scroll like portrait tablets do
+       instead of clipping the lower half, and drop the overlapping footer. */
+    @media (orientation: landscape) and (max-width: 1024px) and (min-height: 561px) {
+      .slide {
+        overflow-y: auto;
+        overscroll-behavior-y: contain;
+        -webkit-overflow-scrolling: touch;
+      }
+      .slide-inner {
+        height: auto;
+        min-height: 100%;
+      }
+      .deck-signature {
+        display: none;
+      }
+    }
+    /* ---- Language switcher (EN / VI / ZH, see i18n.js) ---- */
+    :root { --top-actions-w: 166px; }
+    .lang-switch { position: relative; }
+    .lang-switch__button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 38px;
+      padding: 0 12px 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.94);
+      color: var(--blue-ink);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .02em;
+      box-shadow: 0 6px 18px rgba(23,54,111,.08);
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: color .22s ease, background-color .22s ease, border-color .22s ease;
+    }
+    .lang-switch__button svg { width: 17px; height: 17px; flex: 0 0 auto; }
+    .lang-switch__current { min-width: 2.2em; text-align: left; }
+    @media (hover: hover) and (pointer: fine) {
+      .lang-switch__button:hover {
+        color: #fff;
+        background: var(--orange);
+        border-color: var(--orange);
+      }
+    }
+    .lang-switch__button:focus-visible,
+    .lang-switch__menu button:focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 2px;
+    }
+    .lang-switch__menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      z-index: 130;
+      display: grid;
+      min-width: 150px;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 18px 40px rgba(23,54,111,.16);
+    }
+    .lang-switch__menu[hidden] { display: none; }
+    .lang-switch__menu button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px 12px;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: var(--blue-ink);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 750;
+      text-align: left;
+      cursor: pointer;
+    }
+    .lang-switch__menu button:hover { background: rgba(23,54,111,.06); }
+    .lang-switch__menu button[aria-checked="true"] { color: var(--orange); }
+    .lang-switch__menu button[aria-checked="true"]::after { content: "✓"; }
+    @media (orientation: landscape) and (max-height: 560px) and (max-width: 1100px) {
+      .lang-switch__button { height: 34px; padding: 0 10px 0 8px; font-size: 12px; }
+    }
+    @media (max-width: 680px) {
+      :root { --top-actions-w: 150px; }
+      .lang-switch__button { height: 34px; padding: 0 9px 0 8px; font-size: 12px; }
+    }
+
+    /* Very narrow phones: the map hint would sit on a location card. */
+    @media (orientation: portrait) and (max-width: 380px) {
+      .port-detail-map .map-explore-hint { display: none !important; }
+    }
+
+    /* Chinese: fall back to a proper CJK font for glyphs SF Pro lacks, and
+       drop the tight negative tracking that suits Latin display type only. */
+    html[data-lang="zh"] body,
+    html[data-lang="zh"] button {
+      font-family: "PIO SF Pro", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", sans-serif;
+    }
+    html[data-lang="zh"] h1,
+    html[data-lang="zh"] h2,
+    html[data-lang="zh"] h3,
+    html[data-lang="zh"] .lead,
+    html[data-lang="zh"] p {
+      letter-spacing: 0 !important;
+      word-break: normal;
+      line-break: strict;
+    }
+    html[data-lang="zh"] .eyebrow,
+    html[data-lang="zh"] .cover-kicker,
+    html[data-lang="zh"] .slide-counter span {
+      letter-spacing: .06em !important;
+    }
+
+    @media (orientation: landscape) and (max-height: 420px) {
+      .port-detail-map .map-explore-hint {
+        display: none !important;
+      }
+    }
 </style>
 </head>
 <body>
   <main class="deck" id="deck" aria-label="PIO Logistics company capabilities presentation">
     <div class="brand" aria-label="PIO Logistics">
-      <img src="presentation-assets/pio-logo-header.png" alt="PIO Logistics Co., Ltd">
+      <img src="presentation-assets/pio-logo-header.webp" alt="PIO Logistics Co., Ltd">
     </div>
     <div class="slide-counter" aria-live="polite">
       <span>CAPABILITIES</span>
@@ -7588,6 +7795,17 @@
       <span>/ 12</span>
     </div>
     <div class="top-actions" aria-label="Presentation actions">
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-switch__button" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Change language" title="Change language">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>
+          <span class="lang-switch__current" data-i18n-skip>EN</span>
+        </button>
+        <div class="lang-switch__menu" role="menu" hidden data-i18n-skip>
+          <button type="button" role="menuitemradio" data-lang="en" lang="en">English</button>
+          <button type="button" role="menuitemradio" data-lang="vi" lang="vi">Tiếng Việt</button>
+          <button type="button" role="menuitemradio" data-lang="zh" lang="zh-Hans">简体中文</button>
+        </div>
+      </div>
       <button class="top-fullscreen-button" id="fullscreenButton" type="button" aria-label="Open full screen" title="Full screen">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/>
@@ -7625,7 +7843,7 @@
     <section class="slide cover-slide is-active" data-title="Welcome" aria-hidden="false">
       <div class="cover-service-stage">
         <div class="cover-service-copy">
-          <img class="cover-logo" src="presentation-assets/pio-logo-header.png" alt="PIO Logistics Co., Ltd">
+          <img class="cover-logo" src="presentation-assets/pio-logo-header.webp" alt="PIO Logistics Co., Ltd">
           <div class="cover-kicker">Company capabilities</div>
           <h1><span class="title-main">One team.</span><br><span class="accent">Three core services.</span></h1>
           <p class="cover-subtitle">Based in Ho Chi Minh City, PIO Logistics connects local execution with global freight solutions.</p>
@@ -7636,8 +7854,8 @@
         <div class="cover-service-grid" aria-label="PIO Logistics core services">
           <article class="cover-service-card is-primary is-freight-hero">
             <div class="freight-split" aria-hidden="true">
-              <img src="presentation-assets/cover-freight-sea-front.jpg" alt="">
-              <img src="presentation-assets/cover-freight-air-front.jpg" alt="">
+              <img src="presentation-assets/cover-freight-sea-front.webp" alt="">
+              <img src="presentation-assets/cover-freight-air-front.webp" alt="">
             </div>
             <div class="cover-service-label">
               <h3>International Freight</h3>
@@ -7646,8 +7864,8 @@
           </article>
           <article class="cover-service-card is-truck">
             <div class="freight-split truck-split" aria-hidden="true">
-              <img src="presentation-assets/cover-trucking-front-road.jpg" alt="">
-              <img src="presentation-assets/cover-trucking-small-vietnam.jpg" alt="Vietnamese Hino truck loading cargo at a warehouse">
+              <img src="presentation-assets/cover-trucking-front-road.webp" alt="">
+              <img src="presentation-assets/cover-trucking-small-vietnam.webp" alt="Vietnamese Hino truck loading cargo at a warehouse">
             </div>
             <div class="cover-service-label">
               <h3>Trucking</h3>
@@ -7655,7 +7873,7 @@
             </div>
           </article>
           <article class="cover-service-card is-customs-small">
-            <img src="presentation-assets/pexels-customs-clearance.jpg" alt="Customs clearance paperwork and document handling">
+            <img src="presentation-assets/pexels-customs-clearance.webp" alt="Customs clearance paperwork and document handling">
             <div class="cover-service-label">
               <h3>Customs Clearance</h3>
               <p>Clear documentation, transparent costs, no hidden fees.</p>
@@ -7673,7 +7891,7 @@
         <div class="network-cert-grid single-certificate" aria-label="PIO Logistics network certificate">
           <article class="network-cert-card">
             <div class="network-cert-logo">
-              <img src="presentation-assets/jctrans-certificate.png" alt="PIO Logistics JCTrans Premium member certificate">
+              <img loading="lazy" decoding="async" src="presentation-assets/jctrans-certificate.webp" alt="PIO Logistics JCTrans Premium member certificate">
             </div>
           </article>
         </div>
@@ -7693,7 +7911,7 @@
         </div>
         <div class="port-map-stack">
           <figure class="port-map-hero">
-            <img src="presentation-assets/map-vietnam-port-coverage.svg" alt="Vietnam map showing Ho Chi Minh, Da Nang and Hai Phong port coverage">
+            <img loading="lazy" decoding="async" src="presentation-assets/map-vietnam-port-coverage.svg" alt="Vietnam map showing Ho Chi Minh, Da Nang and Hai Phong port coverage">
             <a class="port-map-link hai-phong" href="?slide=5" data-go-slide="5" aria-label="Go to Hai Phong Port slide"><strong>Hai Phong</strong><span>Hai Phong Port</span></a>
             <span class="port-map-link da-nang" aria-label="Da Nang Port"><strong>Da Nang</strong><span>Da Nang Port</span></span>
             <a class="port-map-link ho-chi-minh" href="?slide=4" data-go-slide="4" aria-label="Go to Cat Lai Port slide"><strong>Ho Chi Minh</strong><span>Cat Lai Port</span></a>
@@ -7710,7 +7928,7 @@
       <div class="slide-inner port-detail-layout">
         <div>
           <figure class="port-detail-map" data-inline-cluster-map="cat-lai">
-            <img src="presentation-assets/map-cat-lai-cluster-base.png" alt="Interactive-style Cat Lai port cluster map with rivers, ports, ICD and depot pin points">
+            <img loading="lazy" decoding="async" src="presentation-assets/map-cat-lai-cluster-base.webp" alt="Interactive-style Cat Lai port cluster map with rivers, ports, ICD and depot pin points">
             <figcaption class="map-explore-hint">Click to explore.</figcaption>
           </figure>
         </div>
@@ -7726,10 +7944,10 @@
             <span>COSCO</span>
           </div>
           <div class="trade-lanes" aria-label="Competitive lanes from Cat Lai">
-            <div class="trade-lane"><span>India</span><img class="flag-watermark" src="presentation-assets/flag-india.webp" alt=""></div>
-            <div class="trade-lane"><span>Australia</span><img class="flag-watermark" src="presentation-assets/flag-australia.svg" alt=""></div>
-            <div class="trade-lane"><span>Americas</span><img class="flag-watermark" src="presentation-assets/flag-usa.svg" alt=""></div>
-            <div class="trade-lane"><span>Latin America</span><img class="flag-watermark" src="presentation-assets/flag-brazil.webp" alt=""></div>
+            <div class="trade-lane"><span>India</span><img loading="lazy" decoding="async" class="flag-watermark" src="presentation-assets/flag-india.webp" alt=""></div>
+            <div class="trade-lane"><span>Australia</span><img loading="lazy" decoding="async" class="flag-watermark" src="presentation-assets/flag-australia.svg" alt=""></div>
+            <div class="trade-lane"><span>Americas</span><img loading="lazy" decoding="async" class="flag-watermark" src="presentation-assets/flag-usa.svg" alt=""></div>
+            <div class="trade-lane"><span>Latin America</span><img loading="lazy" decoding="async" class="flag-watermark" src="presentation-assets/flag-brazil.webp" alt=""></div>
           </div>
           <div class="port-remark">
             <b>Depot, warehouse & empty container support</b>
@@ -7742,7 +7960,7 @@
       <div class="slide-inner port-detail-layout">
         <div>
           <figure class="port-detail-map" data-inline-cluster-map="hai-phong">
-            <img src="presentation-assets/map-hai-phong-cluster-base.png" alt="Interactive-style Hai Phong port cluster map with terminals, depot and northern gateway pin points">
+            <img loading="lazy" decoding="async" src="presentation-assets/map-hai-phong-cluster-base.webp" alt="Interactive-style Hai Phong port cluster map with terminals, depot and northern gateway pin points">
             <figcaption class="map-explore-hint">Click to explore.</figcaption>
           </figure>
         </div>
@@ -7759,10 +7977,10 @@
             <span>MAERSK</span>
           </div>
           <div class="trade-lanes" aria-label="Competitive lanes from Hai Phong">
-            <div class="trade-lane"><span>China</span><img class="flag-watermark" src="presentation-assets/flag-china.png" alt=""></div>
-            <div class="trade-lane"><span>Americas / Latin America</span><img class="flag-watermark" src="presentation-assets/flag-brazil.webp" alt=""></div>
-            <div class="trade-lane"><span>Europe</span><img class="flag-watermark" src="presentation-assets/flag-europe.webp" alt=""></div>
-            <div class="trade-lane"><span>India</span><img class="flag-watermark" src="presentation-assets/flag-india.webp" alt=""></div>
+            <div class="trade-lane"><span>China</span><img loading="lazy" decoding="async" class="flag-watermark" src="presentation-assets/flag-china.webp" alt=""></div>
+            <div class="trade-lane"><span>Americas / Latin America</span><img loading="lazy" decoding="async" class="flag-watermark" src="presentation-assets/flag-brazil.webp" alt=""></div>
+            <div class="trade-lane"><span>Europe</span><img loading="lazy" decoding="async" class="flag-watermark" src="presentation-assets/flag-europe.webp" alt=""></div>
+            <div class="trade-lane"><span>India</span><img loading="lazy" decoding="async" class="flag-watermark" src="presentation-assets/flag-india.webp" alt=""></div>
           </div>
           <div class="port-remark">
             <b>Practical carrier advice</b>
@@ -7775,13 +7993,13 @@
       <div class="slide-inner focus-slide sea-focus sea-clean-layout">
         <div class="photo-collage">
           <figure class="photo main-photo">
-            <img src="presentation-assets/sea-photo-23.jpg" alt="Machinery cargo loaded in container for sea freight">
+            <img loading="lazy" decoding="async" src="presentation-assets/sea-photo-23.webp" alt="Machinery cargo loaded in container for sea freight">
           </figure>
           <figure class="photo detail-photo top">
-            <img src="presentation-assets/sea-photo-17.jpg" alt="Wrapped machine cargo loaded for sea freight">
+            <img loading="lazy" decoding="async" src="presentation-assets/sea-photo-17.webp" alt="Wrapped machine cargo loaded for sea freight">
           </figure>
           <figure class="photo detail-photo bottom">
-            <img src="presentation-assets/sea-loading-container-exw-2-new.jpg" alt="Loading container EXW cargo for sea freight">
+            <img loading="lazy" decoding="async" src="presentation-assets/sea-loading-container-exw-2-new.webp" alt="Loading container EXW cargo for sea freight">
           </figure>
           <div class="visual-badge sea-response-badge">
             <strong>10 min</strong>
@@ -7793,10 +8011,10 @@
           <h2><span class="title-main">Sea freight.</span><br><span class="accent">Fast export rates.</span></h2>
           <p class="lead">Strong ocean freight lanes from Vietnam to China, India, Australia and the Middle East - with fast quotation and practical carrier routing.</p>
           <div class="route-lane-grid" aria-label="Key sea freight lanes">
-            <div class="route-lane"><small>Core lane</small><strong>Vietnam - China</strong><img class="flag-watermark" src="presentation-assets/flag-china.png" alt=""></div>
-            <div class="route-lane"><small>Core lane</small><strong>Vietnam - India</strong><img class="flag-watermark" src="presentation-assets/flag-india.webp" alt=""></div>
-            <div class="route-lane"><small>Core lane</small><strong>Vietnam - Australia</strong><img class="flag-watermark" src="presentation-assets/flag-australia.svg" alt=""></div>
-            <div class="route-lane"><small>Core lane</small><strong>Vietnam - Middle East</strong><img class="flag-watermark" src="presentation-assets/flag-uae.webp" alt=""></div>
+            <div class="route-lane"><small>Core lane</small><strong>Vietnam - China</strong><img loading="lazy" decoding="async" class="flag-watermark" src="presentation-assets/flag-china.webp" alt=""></div>
+            <div class="route-lane"><small>Core lane</small><strong>Vietnam - India</strong><img loading="lazy" decoding="async" class="flag-watermark" src="presentation-assets/flag-india.webp" alt=""></div>
+            <div class="route-lane"><small>Core lane</small><strong>Vietnam - Australia</strong><img loading="lazy" decoding="async" class="flag-watermark" src="presentation-assets/flag-australia.svg" alt=""></div>
+            <div class="route-lane"><small>Core lane</small><strong>Vietnam - Middle East</strong><img loading="lazy" decoding="async" class="flag-watermark" src="presentation-assets/flag-uae.webp" alt=""></div>
           </div>
           <div class="highlight-note">
             <b>Initial response within 10 minutes.</b>
@@ -7815,20 +8033,20 @@
       <div class="slide-inner focus-slide sea-focus">
         <div class="photo-collage">
           <figure class="photo main-photo">
-            <img src="presentation-assets/lcl-fabric-rolls-01.jpg" alt="Fabric rolls prepared for LCL consolidation">
+            <img loading="lazy" decoding="async" src="presentation-assets/lcl-fabric-rolls-01.webp" alt="Fabric rolls prepared for LCL consolidation">
           </figure>
           <figure class="photo detail-photo top">
-            <img src="presentation-assets/lcl-fabric-37c94.jpg" alt="Cartons and mixed cargo loaded with LCL consolidation">
+            <img loading="lazy" decoding="async" src="presentation-assets/lcl-fabric-37c94.webp" alt="Cartons and mixed cargo loaded with LCL consolidation">
           </figure>
           <figure class="photo detail-photo bottom">
-            <img src="presentation-assets/lcl-fabric-1706857688932.jpg" alt="Fabric rolls and cartons loaded for consolidation">
+            <img loading="lazy" decoding="async" src="presentation-assets/lcl-fabric-1706857688932.webp" alt="Fabric rolls and cartons loaded for consolidation">
           </figure>
           <div class="lcl-hidden-gallery" aria-hidden="true">
-            <img src="presentation-assets/lcl-fabric-rolls-03.jpg" alt="Mixed fabric rolls consolidated for export">
-            <img src="presentation-assets/lcl-fabric-rolls-05.jpg" alt="Fabric rolls and cartons loaded together">
-            <img src="presentation-assets/consol-170-mixed-rolls.jpg" alt="Mixed fabric rolls loaded for consolidation">
-            <img src="presentation-assets/sea-tuan-fabric-rolls.jpg" alt="Fabric rolls prepared in warehouse">
-            <img src="presentation-assets/FABRIC.jpg" alt="Grey fabric rolls prepared for consolidation">
+            <img loading="lazy" decoding="async" src="presentation-assets/lcl-fabric-rolls-03.webp" alt="Mixed fabric rolls consolidated for export">
+            <img loading="lazy" decoding="async" src="presentation-assets/lcl-fabric-rolls-05.webp" alt="Fabric rolls and cartons loaded together">
+            <img loading="lazy" decoding="async" src="presentation-assets/consol-170-mixed-rolls.webp" alt="Mixed fabric rolls loaded for consolidation">
+            <img loading="lazy" decoding="async" src="presentation-assets/sea-tuan-fabric-rolls.webp" alt="Fabric rolls prepared in warehouse">
+            <img loading="lazy" decoding="async" src="presentation-assets/FABRIC.webp" alt="Grey fabric rolls prepared for consolidation">
           </div>
           <div class="visual-badge">
             <strong>LCL</strong>
@@ -7860,18 +8078,18 @@
             <span>Dangerous cargo</span>
           </div>
           <figure class="air-network-card">
-            <img src="presentation-assets/asset-worldwide-air.png" alt="Worldwide air freight network">
+            <img loading="lazy" decoding="async" src="presentation-assets/asset-worldwide-air.webp" alt="Worldwide air freight network">
           </figure>
         </div>
         <div class="photo-collage">
           <figure class="photo main-photo">
-            <img src="presentation-assets/air-cargo-main.jpg" alt="Air cargo loaded and ready for shipment">
+            <img loading="lazy" decoding="async" src="presentation-assets/air-cargo-main.webp" alt="Air cargo loaded and ready for shipment">
           </figure>
           <figure class="photo detail-photo top">
-            <img src="presentation-assets/air-cargo-detail.jpg" alt="Air freight label on export cargo">
+            <img loading="lazy" decoding="async" src="presentation-assets/air-cargo-detail.webp" alt="Air freight label on export cargo">
           </figure>
           <figure class="photo detail-photo bottom">
-            <img src="presentation-assets/air-freight.jpg" alt="PIO Logistics air cargo handling at night">
+            <img loading="lazy" decoding="async" src="presentation-assets/air-freight.webp" alt="PIO Logistics air cargo handling at night">
           </figure>
           <div class="visual-badge">
             <strong>Air</strong>
@@ -7884,20 +8102,20 @@
       <div class="slide-inner focus-slide project-focus">
         <div class="photo-collage">
           <figure class="photo main-photo">
-            <img src="presentation-assets/heavy-machine-loading-blurred.jpg" alt="Big size machine cargo loading with truck plate blurred">
+            <img loading="lazy" decoding="async" src="presentation-assets/heavy-machine-loading-blurred.webp" alt="Big size machine cargo loading with truck plate blurred">
           </figure>
           <figure class="photo detail-photo top">
-            <img src="presentation-assets/heavy-steel-tube.jpg" alt="Big size steel tube cargo prepared for shipment">
+            <img loading="lazy" decoding="async" src="presentation-assets/heavy-steel-tube.webp" alt="Big size steel tube cargo prepared for shipment">
           </figure>
           <figure class="photo detail-photo bottom">
-            <img src="presentation-assets/heavy-cargo-15.jpg" alt="Heavy cargo loading and securing operation">
+            <img loading="lazy" decoding="async" src="presentation-assets/heavy-cargo-15.webp" alt="Heavy cargo loading and securing operation">
           </figure>
           <div class="project-hidden-gallery" aria-hidden="true">
-            <img src="presentation-assets/project-machine-loading-2-blurred.jpg" alt="Big size machine cargo loading with license plate blurred">
-            <img src="presentation-assets/project-machine-loading-3.jpg" alt="Big size machine cargo loading operation">
-            <img src="presentation-assets/project-big-size-machine.jpg" alt="Big size machine cargo prepared for shipment">
-            <img src="presentation-assets/project-photo-22.jpg" alt="Oversized project cargo loaded inside container">
-            <img src="presentation-assets/project-photo-14.jpg" alt="Project cargo handling inside container">
+            <img loading="lazy" decoding="async" src="presentation-assets/project-machine-loading-2-blurred.webp" alt="Big size machine cargo loading with license plate blurred">
+            <img loading="lazy" decoding="async" src="presentation-assets/project-machine-loading-3.webp" alt="Big size machine cargo loading operation">
+            <img loading="lazy" decoding="async" src="presentation-assets/project-big-size-machine.webp" alt="Big size machine cargo prepared for shipment">
+            <img loading="lazy" decoding="async" src="presentation-assets/project-photo-22.webp" alt="Oversized project cargo loaded inside container">
+            <img loading="lazy" decoding="async" src="presentation-assets/project-photo-14.webp" alt="Project cargo handling inside container">
           </div>
           <div class="visual-badge">
             <strong>Heavy</strong>
@@ -7920,31 +8138,31 @@
       <div class="slide-inner truck-ops-layout">
         <div class="truck-ops-visual">
           <figure class="photo">
-            <img src="presentation-assets/z7113981572403_07b79e4ed21c7f25a8ab4dbb7df0d1ed.jpg" alt="Forklift unloading wrapped cargo from truck at customer site">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981572403_07b79e4ed21c7f25a8ab4dbb7df0d1ed.webp" alt="Forklift unloading wrapped cargo from truck at customer site">
           </figure>
           <figure class="photo">
-            <img src="presentation-assets/z7113981623647_03b5b1f799a287f0922428ced8615e4f.jpg" alt="Crane and truck handling oversized wrapped cargo">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981623647_03b5b1f799a287f0922428ced8615e4f.webp" alt="Crane and truck handling oversized wrapped cargo">
           </figure>
           <figure class="map-card-mini">
-            <img src="presentation-assets/z7207641334380_cd660124087a36138531bbd0f236f3bc.jpg" alt="Forklift unloading cargo from truck">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7207641334380_cd660124087a36138531bbd0f236f3bc.webp" alt="Forklift unloading cargo from truck">
           </figure>
           <div class="truck-hidden-gallery" aria-hidden="true">
-            <img src="presentation-assets/z7207646831445_7f1ed9d2a47b97a4fb16c4d22a811984.jpg" alt="Cargo staged after unloading with forklift support">
-            <img src="presentation-assets/z7086382934817_82750a48ddc7b82029118ff8942f1e0e.jpg" alt="Truck unloading operation">
-            <img src="presentation-assets/z7086574423906_526105dadda53f348f04fa1c5a702ac9.jpg" alt="Cargo prepared for unloading at customer site">
-            <img src="presentation-assets/z7113981520529_f3191cd095d44ce6e81ca40be2c85ab8.jpg" alt="Wrapped cargo unit ready for truck unloading">
-            <img src="presentation-assets/z7113981536066_517de8f6ef08b798024670fb11b22d9f.jpg" alt="Wrapped cargo secured for on-site handling">
-            <img src="presentation-assets/z7113981538961_e5b9c9e5bccdc1e8008c466ec16d25e2.jpg" alt="Wooden crated cargo staged for unloading">
-            <img src="presentation-assets/z7113981585165_d88a396bf1b548e98faf3f3b4cefca14.jpg" alt="On-site manpower assisting wrapped cargo unloading">
-            <img src="presentation-assets/z7113981585419_26bb0a559d0b51d6eb4a0248009b7b6e.jpg" alt="Cargo secured on flatbed truck for handling">
-            <img src="presentation-assets/z7113981595863_aa64cd73e4f6debdd8767db8bd6847b5.jpg" alt="Night unloading operation with lifting equipment">
-            <img src="presentation-assets/z7113981602775_454ae8fe87f3331de67fad8578d8d441.jpg" alt="Night cargo unloading with truck and crane support">
-            <img src="presentation-assets/z7113981626633_bab13aa3cd231d10f5ec90aff2cbf363.jpg" alt="Wrapped cargo on truck with crane support">
-            <img src="presentation-assets/z7113981636490_5d64bac4a440d5712241b809b776e67a.jpg" alt="Crane unloading wrapped cargo from truck">
-            <img src="presentation-assets/z7113981637929_e025d63a579acca4772ea16ad85b9435.jpg" alt="Crane and truck unloading cargo on site">
-            <img src="presentation-assets/z7113981650667_826772a9087ab2fd41d3c0b93f3b636f.jpg" alt="Cargo inside container after unloading preparation">
-            <img src="presentation-assets/z7113981650907_4e4bb25c9adb6f5544f53e49ffeba904.jpg" alt="Truck unloading at customer site with container cargo">
-            <img src="presentation-assets/z7113981660572_d4f9e4a11a2a81304818a3f47d430e9b.jpg" alt="Flatbed truck carrying cargo for on-site delivery">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7207646831445_7f1ed9d2a47b97a4fb16c4d22a811984.webp" alt="Cargo staged after unloading with forklift support">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7086382934817_82750a48ddc7b82029118ff8942f1e0e.webp" alt="Truck unloading operation">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7086574423906_526105dadda53f348f04fa1c5a702ac9.webp" alt="Cargo prepared for unloading at customer site">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981520529_f3191cd095d44ce6e81ca40be2c85ab8.webp" alt="Wrapped cargo unit ready for truck unloading">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981536066_517de8f6ef08b798024670fb11b22d9f.webp" alt="Wrapped cargo secured for on-site handling">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981538961_e5b9c9e5bccdc1e8008c466ec16d25e2.webp" alt="Wooden crated cargo staged for unloading">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981585165_d88a396bf1b548e98faf3f3b4cefca14.webp" alt="On-site manpower assisting wrapped cargo unloading">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981585419_26bb0a559d0b51d6eb4a0248009b7b6e.webp" alt="Cargo secured on flatbed truck for handling">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981595863_aa64cd73e4f6debdd8767db8bd6847b5.webp" alt="Night unloading operation with lifting equipment">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981602775_454ae8fe87f3331de67fad8578d8d441.webp" alt="Night cargo unloading with truck and crane support">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981626633_bab13aa3cd231d10f5ec90aff2cbf363.webp" alt="Wrapped cargo on truck with crane support">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981636490_5d64bac4a440d5712241b809b776e67a.webp" alt="Crane unloading wrapped cargo from truck">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981637929_e025d63a579acca4772ea16ad85b9435.webp" alt="Crane and truck unloading cargo on site">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981650667_826772a9087ab2fd41d3c0b93f3b636f.webp" alt="Cargo inside container after unloading preparation">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981650907_4e4bb25c9adb6f5544f53e49ffeba904.webp" alt="Truck unloading at customer site with container cargo">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7113981660572_d4f9e4a11a2a81304818a3f47d430e9b.webp" alt="Flatbed truck carrying cargo for on-site delivery">
           </div>
         </div>
         <div class="truck-ops-copy">
@@ -7982,15 +8200,15 @@
         </div>
         <div class="photo-collage">
           <figure class="photo main-photo">
-            <img src="presentation-assets/z7981101122165_16a96efcb79cfafee5a16d5604165e49.jpg" alt="Chemical goods paint pails prepared for customs clearance">
+            <img loading="lazy" decoding="async" src="presentation-assets/z7981101122165_16a96efcb79cfafee5a16d5604165e49.webp" alt="Chemical goods paint pails prepared for customs clearance">
             <figcaption class="photo-caption">Chemical goods</figcaption>
           </figure>
           <figure class="photo detail-photo top">
-            <img src="presentation-assets/customs-packing-machine-1.jpg" alt="Packing machine for customs clearance">
+            <img loading="lazy" decoding="async" src="presentation-assets/customs-packing-machine-1.webp" alt="Packing machine for customs clearance">
             <figcaption class="photo-caption">Machinery &amp; equipment</figcaption>
           </figure>
           <figure class="photo detail-photo bottom">
-            <img src="presentation-assets/customs-pressing-machine.png" alt="Pressing machine for industrial goods customs clearance">
+            <img loading="lazy" decoding="async" src="presentation-assets/customs-pressing-machine.webp" alt="Pressing machine for industrial goods customs clearance">
             <figcaption class="photo-caption">Construction &amp; industrial goods</figcaption>
           </figure>
         </div>
@@ -8004,10 +8222,10 @@
           <p class="lead">A dedicated operations slide for carrier pickup points, container release notes and lanes where PIO can quote competitively.</p>
           <div class="catlai-side-visual">
             <figure class="photo">
-              <img src="presentation-assets/catlai-tuan-kho01-pickup.jpg" alt="Cargo pickup at Kho 01 Cat Lai">
+              <img loading="lazy" decoding="async" src="presentation-assets/catlai-tuan-kho01-pickup.webp" alt="Cargo pickup at Kho 01 Cat Lai">
             </figure>
             <figure class="photo">
-              <img src="presentation-assets/catlai-tuan-warehouse-pallet.jpg" alt="Warehouse pallet handling at Cat Lai">
+              <img loading="lazy" decoding="async" src="presentation-assets/catlai-tuan-warehouse-pallet.webp" alt="Warehouse pallet handling at Cat Lai">
             </figure>
           </div>
           <div class="highlight-note">
@@ -8132,6 +8350,9 @@
         document.documentElement.style.setProperty('--app-width', `${width}px`);
         document.documentElement.style.setProperty('--app-height', `${height}px`);
       }
+      // visualViewport can report the previous size during the resize event
+      // itself (rotation, window drag), so sync again on the next frame.
+      window.addEventListener('resize', () => requestAnimationFrame(syncViewportSize));
       syncViewportSize();
       window.visualViewport?.addEventListener('resize', syncViewportSize);
       window.visualViewport?.addEventListener('scroll', syncViewportSize);
@@ -8178,6 +8399,65 @@
         tapPrev.disabled = current === 0;
         tapNext.disabled = current === slides.length - 1;
         document.title = `PIO Logistics | ${slides[current].dataset.title}`;
+        warmSlideImages(current);
+        fitActiveSlide();
+        window.setTimeout(scheduleFit, 700); // re-measure once the slide transition settles
+      }
+      // Presentation mode (slide does not scroll): if the slide content is
+      // taller than the space between the header and the footer signature,
+      // scale it down with CSS zoom just enough to fit. Scrolling layouts
+      // (portrait / phones) are left untouched.
+      const FIT_MIN_SCALE = 0.72;
+      const deckSignature = document.querySelector('.deck-signature');
+      function fitViolation(slide, inner) {
+        const slideBox = slide.getBoundingClientRect();
+        const innerStyle = getComputedStyle(inner);
+        const pad = parseFloat(innerStyle.paddingTop) || 0;
+        const sig = deckSignature && getComputedStyle(deckSignature).display !== 'none' &&
+          getComputedStyle(deckSignature).opacity !== '0' ? deckSignature.getBoundingClientRect() : null;
+        const floor = slideBox.bottom - Math.max(16, (parseFloat(innerStyle.paddingBottom) || 0) * 0.5);
+        // Images inside a figure are cropped by it, so measure the figure.
+        const parts = inner.querySelectorAll('img:not(.flag-watermark):not(figure img), figure, h1, h2, h3, p, li, .chip, .big-chip, .ops-chip, .highlight-note, .route-lane, .trade-lane, .port-remark, .network-cert-card, .contact-card, .person-card');
+        for (const el of parts) {
+          const r = el.getBoundingClientRect();
+          if (!r.height || !r.width) continue;
+          if (r.bottom > floor || r.top < slideBox.top + pad * 0.5) return true;
+          if (sig && r.left < sig.right + 8 && r.right > sig.left && r.bottom > sig.top - 10) return true;
+        }
+        return false;
+      }
+      function fitActiveSlide() {
+        const slide = slides[current];
+        const inner = slide && slide.firstElementChild;
+        if (!inner) return;
+        const kids = [...inner.children];
+        kids.forEach((kid) => { kid.style.zoom = ''; });
+        if (getComputedStyle(slide).overflowY !== 'hidden' || !fitViolation(slide, inner)) return;
+        let lo = FIT_MIN_SCALE, hi = 1;
+        for (let i = 0; i < 6; i++) {
+          const mid = (lo + hi) / 2;
+          kids.forEach((kid) => { kid.style.zoom = mid; });
+          if (fitViolation(slide, inner)) hi = mid; else lo = mid;
+        }
+        kids.forEach((kid) => { kid.style.zoom = lo.toFixed(3); });
+      }
+      let fitFrame = 0;
+      function scheduleFit() {
+        cancelAnimationFrame(fitFrame);
+        fitFrame = requestAnimationFrame(fitActiveSlide);
+      }
+      window.addEventListener('resize', scheduleFit);
+      window.addEventListener('orientationchange', () => window.setTimeout(scheduleFit, 300));
+      window.addEventListener('load', scheduleFit);
+      document.fonts?.ready.then(scheduleFit);
+      // Images outside the cover are lazy-loaded; fetch the current and
+      // neighbouring slides eagerly so navigation never shows a blank photo.
+      function warmSlideImages(index) {
+        for (let i = index - 1; i <= index + 2; i++) {
+          slides[i]?.querySelectorAll('img[loading="lazy"]').forEach((img) => {
+            img.loading = 'eager';
+          });
+        }
       }
       function next() {
         if (current < slides.length - 1) goTo(current + 1);
@@ -8250,8 +8530,8 @@
       const clusterMapHotspotSets = [
         {
           key: 'cat-lai',
-          test: /map-cat-lai-cluster-(?:white|base)\.(png|svg)$/i,
-          baseSrc: 'presentation-assets/map-cat-lai-cluster-base.png',
+          test: /map-cat-lai-cluster-(?:white|base)\.(png|webp|svg)$/i,
+          baseSrc: 'presentation-assets/map-cat-lai-cluster-base.webp',
           spots: [
             {
               label: 'Song Than ICD',
@@ -8327,8 +8607,8 @@
         },
         {
           key: 'hai-phong',
-          test: /map-hai-phong-cluster-(?:white|base)\.(png|svg)$/i,
-          baseSrc: 'presentation-assets/map-hai-phong-cluster-base.png',
+          test: /map-hai-phong-cluster-(?:white|base)\.(png|webp|svg)$/i,
+          baseSrc: 'presentation-assets/map-hai-phong-cluster-base.webp',
           spots: [
             {
               label: 'Hai Phong Port',
@@ -9083,5 +9363,6 @@
     observer.observe(document.body, { childList: true, subtree: true });
 
 </script>
+<script src="i18n.js"></script>
 </body>
 </html>
